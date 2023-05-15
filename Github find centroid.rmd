@@ -1,0 +1,127 @@
+---
+title: "Find and plot the network closest to the centroid in PERMANOVA by AnNA"
+output: html_notebook
+---
+
+Load packages and matrices. This part is similar to previous work on Anatomical Network Analysis 
+```{r}
+library(igraph)     # building and analyzing network models
+library(dplyr)
+library(vegan)      # analysis PERMANOVA
+
+#function to calculate heterogeneity
+heterogeneity <- function(graph){
+  deg <- igraph::degree(graph)
+  res <- sd(deg, na.rm=TRUE)/mean(deg, na.rm=FALSE)
+  return(res)
+}
+
+# set variables
+parameter_names<-c("N","K","D","C","L","H","A")  
+networks<-c("AlligatorA","AlligatorJ", "Caiman", "Crocodylus", "GavialisA",
+"Euparkeria","Garjainia","Paleorhinus","Riojasuchus", "Erpetosuchus")
+
+# load the data (csv)
+graph.list<-list()
+for (i in 1:length(networks)){
+  net<-read.csv(paste("",networks[i],".csv",sep=""),header=TRUE)[,-1]
+  graph.list[[i]]<-graph_from_adjacency_matrix(data.matrix(net,rownames.force=FALSE),mode="undirected")
+}
+# make sure there are no loops and multi-links
+graph.list<-lapply(graph.list,simplify)
+names(graph.list)<-networks
+
+parameters<-matrix(NA,nrow=length(networks),ncol=7) #don't do parcellation
+rownames(parameters)<-networks
+colnames(parameters)<-parameter_names
+
+#measure parameters
+      
+parameters[,1]<-mapply(vcount,graph.list)
+parameters[,2]<-mapply(ecount,graph.list)
+parameters[,3]<-mapply(edge_density,graph.list)
+parameters[,4]<-mapply(transitivity,graph.list,type="average",isolates="zero")
+parameters[,5]<-mapply(mean_distance,graph.list,directed=FALSE)
+parameters[,6]<-mapply(heterogeneity,graph.list)
+parameters[,7]<-mapply(assortativity_degree,graph.list,directed=FALSE)
+parameters<-data.frame(parameters,row.names=networks)
+
+set.seed(20)
+
+parameters[,1]<-sqrt(parameters[,1])
+parameters[,2]<-sqrt(parameters[,2])
+data<-parameters
+```
+
+
+Run the PCA and find the centroids and matrices closest to the centroids
+```{r}
+#define the clusters of interest
+data$clade[c(1:5)]<- "Crocodylia" 
+data$clade[c(6:10)]<- "Non-crocodylia"
+
+# Run a PCA on the matrix
+pca <- prcomp(data[-8],center=TRUE,scale.=TRUE)
+
+# Create a distance matrix based on the PCA scores
+d <- vegdist(pca$x)
+
+# Run a PERMANOVA on the distance matrix, with clade as the grouping variable
+adonis_result <- adonis(d ~ clade)
+adonis_result 
+
+# Get the principal component scores for each observation
+scores <- pca$x #pca$x
+# Add the group labels to the scores data frame
+group_labels <- data$clade
+
+centroids <- aggregate(scores, by = list(group = group_labels), FUN = mean)
+
+
+# Create an empty data frame to store the closest points
+closest_points <- data.frame()
+
+# Loop over the groups in the data frame
+for (group in unique(data$clade)) {
+  # Get the centroid for the current group
+  group_centroid <- centroids[centroids$group == group, -1]
+  
+  # Get the data for the current group
+  group_data <- data[data$clade == group, -1]
+  
+  # Calculate the distance to the centroid for each row in the group
+  dist_to_centroid <- apply(group_data, 1, function(row) {
+    dist(rbind(row, group_centroid))
+  })
+  
+  # Get the row with the minimum distance to the centroid
+  closest_row <- data[data$clade == group,][which.min(dist_to_centroid),]
+  
+  # Add the closest row to the output data frame
+  closest_points <- rbind(closest_points, closest_row)
+}
+
+# which matrix is closest to the centroid
+closest_points
+
+# Find the row indices of the closest matrices in the parameters data frame
+closest_indices <- match(rownames(closest_points), rownames(parameters))
+
+# Extract the rows from the parameters data frame that correspond to the closest matrices
+closest_parameters <- parameters[closest_indices,]
+closest_parameters
+```
+
+Export the PNG of the networks closest to the centroid 
+```{r}
+set.seed(20)
+communities<-list()
+for(i in 1:length(closest_indices)){
+  communities[[i]]<-cluster_infomap(graph.list[[closest_indices[i]]])
+  out.file.name <- paste("",networks[closest_indices[i]], ".centroid.png", sep="")
+  png(out.file.name, width=640, height=480)
+  plot(communities[[i]], graph.list[[closest_indices[i]]], col="violet", mark.border="White", mark.col= "White")
+  title(main = paste("Closest Network: ", networks[closest_indices[i]]), sub = "", adj = 1, line = -25)
+  dev.off()
+}
+```

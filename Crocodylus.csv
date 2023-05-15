@@ -1,0 +1,38 @@
+﻿,R Premaxilla,L Premaxilla,R Maxilla,L Maxilla,R Nasal,L Nasal,R Lacrimal,L Lacrimal,R Prefrontal,L Prefrontal,R Postorbital,L Postorbital,R Jugal,L Jugal,R Quadratojugal,L Quadratojugal,R Squamosal,L Squamosal,Frontal,Parietal,Supraocciptal,R Otoccipital,L Otoccipital,R Prootic,L Prootic,Basioccipital,Basisphenoid,R Laterosphenoid,L Laterosphenoid,R Vomer,L Vomer,Palatine,Pterygoid,R Ectopterygoid,L Ectopterygoid,R Quadrate,L Quadrate
+R Premaxilla,,1,1,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+L Premaxilla,1,,,1,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+R Maxilla,1,,,1,1,,1,,,,,,1,,,,,,,,,,,,,,,,,1,,1,,1,,,
+L Maxilla,,1,1,,,1,,1,,,,,,1,,,,,,,,,,,,,,,,,1,1,,,1,,
+R Nasal,1,,1,,,1,1,,1,,,,,,,,,,1,,,,,,,,,,,,,,,,,,
+L Nasal,,1,,1,1,,,1,,1,,,,,,,,,1,,,,,,,,,,,,,,,,,,
+R Lacrimal,,,1,,1,,,,1,,,,1,,,,,,,,,,,,,,,,,,,,,,,,
+L Lacrimal,,,,1,,1,,,,1,,,,1,,,,,,,,,,,,,,,,,,,,,,,
+R Prefrontal,,,,,1,,1,,,,,,,,,,,,1,,,,,,,,,,,,,1,,,,,
+L Prefrontal,,,,,,1,,1,,,,,,,,,,,1,,,,,,,,,,,,,1,,,,,
+R Postorbital,,,,,,,,,,,,,1,,,,1,,1,1,,,,,,,,,,,,,,1,,,
+L Postorbital,,,,,,,,,,,,,,1,,,,1,1,1,,,,,,,,,,,,,,,1,,
+R Jugal,,,1,,,,1,,,,1,,,,1,,,,,,,,,,,,,,,,,,,1,,,
+L Jugal,,,,1,,,,1,,,,1,,,,1,,,,,,,,,,,,,,,,,,,1,,
+R Quadratojugal,,,,,,,,,,,,,1,,,,,,,,,,,,,,,,,,,,,,,1,
+L Quadratojugal,,,,,,,,,,,,,,1,,,,,,,,,,,,,,,,,,,,,,,1
+R Squamosal,,,,,,,,,,,1,,,,,,,,,1,1,1,,,,,,,,,,,,,,1,
+L Squamosal,,,,,,,,,,,,1,,,,,,,,1,1,,1,,,,,,,,,,,,,,1
+Frontal,,,,,1,1,,,1,1,1,1,,,,,,,,1,,,,,,,,1,1,,,,,,,,
+Parietal,,,,,,,,,,,1,1,,,,,1,1,1,,1,,,,,,,1,1,,,,,,,1,1
+Supraoccipital,,,,,,,,,,,,,,,,,1,1,,1,,1,1,,,,,,,,,,,,,,
+R Otoccipital,,,,,,,,,,,,,,,,,1,,,,1,,1,,,1,1,,,,,,,,,1,
+L Otoccipital,,,,,,,,,,,,,,,,,,1,,,1,1,,,,1,1,,,,,,,,,,1
+R Prootic,,,,,,,,,,,,,,,,,,,,,,,,,,,1,1,,,,,1,,,1,
+L Prootic,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,1,,,,1,,,,1
+Basioccipital,,,,,,,,,,,,,,,,,,,,,,1,1,,,,1,,,,,,,,,,
+Basisphenoid,,,,,,,,,,,,,,,,,,,,,,1,1,1,1,1,,1,1,,,,1,,,1,1
+R Laterosphenoid,,,,,,,,,,,,,,,,,,,1,1,,,,1,,,1,,1,,,,1,,,1,
+L Laterosphenoid,,,,,,,,,,,,,,,,,,,1,1,,,,,1,,1,1,,,,,1,,,,1
+R Vomer,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,1,1,,,,
+L Vomer,,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,1,,1,1,,,,
+Palatine,,,1,1,,,,,1,1,,,,,,,,,,,,,,,,,,,,1,1,,1,,,,
+Pterygoid,,,,,,,,,,,,,,,,,,,,,,,,1,1,,1,1,1,1,1,1,,1,1,1,1
+R Ectopterygoid,,,1,,,,,,,,1,,1,,,,,,,,,,,,,,,,,,,,1,,,,
+L Ectopterygoid,,,,1,,,,,,,,1,,1,,,,,,,,,,,,,,,,,,,1,,,,
+R Quadrate,,,,,,,,,,,,,,,1,,1,,,1,,1,,1,,,1,1,,,,,1,,,,
+L Quadrate,,,,,,,,,,,,,,,,1,,1,,1,,,1,,1,,1,,1,,,,1,,,,
